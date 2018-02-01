@@ -46,7 +46,6 @@ app.get("/", function (req, res) {
 
 app.post('/input', function (req, res) {
     var input = req.body.input;
-    console.log(input);
     compute(input);
     res.end();
 });
