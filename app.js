@@ -16,7 +16,6 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
     'version_date': '2017-02-27'
 });
 
-
 //Function to compute category
 
 function compute(input) {
@@ -31,10 +30,20 @@ function compute(input) {
         if (err)
             console.log('error:', err);
         else
-            console.log(JSON.stringify(response, null, 2));
+            resp = JSON.stringify(response, null, 2);
+        console.log(resp);
+        sendRes(resp);
     });
+
+    return resp;
 }
 
+//function to send the response
+
+function sendRes(output){
+    res.setHeader('Content-Type', 'application/json');
+    res.send(output);
+}
 
 //Input route
 
@@ -45,10 +54,10 @@ app.get("/", function (req, res) {
 
 
 app.post('/input', function (req, res) {
-    var input = req.body.input;
-    compute(input);
-    res.end();
+    var inputString = req.body.input;
+    compute(inputString);
 });
+
 
 //Runserver
 app.listen(8000, function() {
